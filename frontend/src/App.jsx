@@ -1,3 +1,4 @@
+import NavBar from "./components/NavBar/navbar"
 
 function App() {
 
@@ -6,6 +7,7 @@ function App() {
       <div>
         oi
       </div>
+      <NavBar />
     </>
   )
 };
