@@ -1,0 +1,83 @@
+.container-paciente {
+    margin: 0;
+    padding: 15px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 15px;
+
+    background-color: aquamarine;
+}
+
+.titulo {
+    margin: 0;
+    padding: 0;
+
+    font-size: 35px;
+    background-color: red;
+}
+
+.container-opcoes {
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: row;
+
+    gap: 30px;
+
+    justify-content: center;
+    align-items: center;
+
+    background-color: blanchedalmond;
+}
+
+.opcoes {
+    margin: 0;
+    padding: 20px;
+
+    border-radius: 15px;
+    border: none;
+
+    background-color: #7ca0be;
+}
+
+.opcoes:hover {
+    background-color: red;
+}
+
+.opcoes:active {
+    background-color: blue;
+}
+
+.container-forms {
+    width: 50%;
+    height: 20%;
+
+    margin: 0;
+    padding: 20px;
+    
+    background-color: bisque;
+    border-radius: 5px;
+}
+
+form {
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 10px;
+}
+
+.informacoes {
+    display: flex;
+    gap: 15px;
+}
