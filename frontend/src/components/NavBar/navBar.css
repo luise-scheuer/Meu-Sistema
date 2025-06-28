@@ -3,18 +3,40 @@ nav {
     align-items: center;
     font-size: 22px;
     border-bottom: 1px solid black;
-}
-
-a {
-    text-decoration: none;
+    margin: 0px 300px;
 }
 
 #campos {
-
     width: 100%;
     display: flex;
     gap: 30px;
     justify-content: flex-end;
 }
 
+#campos a {
+    text-decoration: none;
+    user-select: none;       /* Impede seleção de texto */
+    pointer-events: auto;    /* Garante que os links ainda funcionem */
+    cursor: pointer;         /* Mostra a mãozinha ao passar o mouse */
+    color: black;            /* Define a cor do link */
+    transition: all 0.3s ease;
+}
 
+/* Efeito hover para interatividade */
+#campos :hover {
+    color: #5dc692;          /* Altere a cor no hover (exemplo: azul) */
+    transform: scale(1.05);  /* Leve aumento no tamanho */
+}
+
+#logo {
+    user-select: none;
+    /* Impede seleção de texto */
+    cursor: pointer;
+    /* Mostra o cursor de "mãozinha" */
+}
+
+#logo img {
+    width: 30%;
+    height: 30%;
+
+}
