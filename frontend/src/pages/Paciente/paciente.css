@@ -10,7 +10,6 @@
 
     gap: 15px;
 
-    background-color: aquamarine;
 }
 
 .titulo {
@@ -18,7 +17,8 @@
     padding: 0;
 
     font-size: 35px;
-    background-color: red;
+    text-decoration: underline wavy;
+    color: #2b363f;
 }
 
 .container-opcoes {
@@ -32,26 +32,32 @@
 
     justify-content: center;
     align-items: center;
+}
 
-    background-color: blanchedalmond;
+button {
+    font-family: "Quicksand";
+    color: #f1f8ff;
+    background-color: #7ca0be;
 }
 
 .opcoes {
     margin: 0;
     padding: 20px;
+    
+    font-size: 20px;
+    font-weight: 600;
 
     border-radius: 15px;
     border: none;
 
-    background-color: #7ca0be;
 }
 
-.opcoes:hover {
-    background-color: red;
+button:hover {
+    background-color: #5a7c99;
 }
 
-.opcoes:active {
-    background-color: blue;
+button:active {
+    background-color: #4d6477;
 }
 
 .container-forms {
@@ -61,7 +67,7 @@
     margin: 0;
     padding: 20px;
     
-    background-color: bisque;
+    background-color: #D5E2E3;
     border-radius: 5px;
 }
 
@@ -71,6 +77,7 @@ form {
 
     display: flex;
     flex-direction: column;
+
     justify-content: center;
     align-items: center;
 
@@ -78,6 +85,41 @@ form {
 }
 
 .informacoes {
+    width: 65%;
+
     display: flex;
-    gap: 15px;
+    flex-direction: column;
+    gap: 5px;
+
+}
+
+label {
+    margin: 0;
+    padding: 0;
+
+    font-size: 18px;
+    font-weight: 600;
+    color: #2b363f;
+}
+
+input {
+    margin: 0;
+    padding: 5px;
+
+    border: none;
+    border-radius: 5px;
+
+    font-family: "Quicksand";
+}
+
+#enviar {
+    width: 50%;
+    margin-top: 20px;
+    padding: 10px;
+
+    font-size: 20px;
+    font-weight: 500;
+
+    border: none;
+    border-radius: 10px;
 }
