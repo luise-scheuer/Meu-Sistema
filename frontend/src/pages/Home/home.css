@@ -1,4 +1,6 @@
-main {}
+main {
+    margin: 0px 300px;
+}
 
 #inicial {
     display: flex;
@@ -6,19 +8,30 @@ main {}
     height: 500px;
     gap: 200px;
     margin-top: 50px;
+
+}
+
+#titulo {
+    width: 40%;
 }
 
 #titulo h1 {
     font-size: 60px;
+        font-family: 'Roboto', sans-serif;
+
 }
 
 
 #box-imagem {
-    width: 600px;
-    height: 500px;
+    width: 40%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    user-select: none;
+    /* Impede seleção de texto */
+    cursor: pointer;
+    /* Mostra o cursor de "mãozinha" */
 }
 
 #box-imagem img {
@@ -32,7 +45,7 @@ main {}
     justify-content: center;
     gap: 50px;
     height: 300px;
-    margin-top: 40px;
+    margin-top: 50px;
 }
 
 .box {
@@ -44,9 +57,35 @@ main {}
     justify-content: center;
     text-align: center;
     box-shadow: 0px 4px 15px rgba(109, 109, 109, 0.2);
+    transition: all 0.3s ease;
+    /* Transição suave */
+    cursor: pointer;
+    /* Muda o cursor para indicar interatividade */
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+
+    user-select: none;
+    /* Impede seleção de texto */
+    cursor: pointer;
+    /* Mostra o cursor de "mãozinha" */
 }
 
-.box img{
+/* Interação ao passar o mouse */
+.box:hover {
+    transform: scale(1.05);
+    /* Aumenta levemente o tamanho */
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+    /* Sombra mais intensa */
+    background-color: #ffffff;
+    /* Um leve fundo azulado */
+}
+
+.box img {
     width: 120px;
     height: 120px;
+}
+
+.destaque {
+    color: #6a0dad; /* ou outro tom de roxo */
 }
