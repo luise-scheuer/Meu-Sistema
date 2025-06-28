@@ -17,17 +17,17 @@ export default function Home() {
             </div>
 
             <div id="box-pai">
-                <div class="box">
+                <div className="box">
                     <img src={icon} alt="Imagem da home" />
                     <h2>Faça check-ups</h2>
                     <p> Realizar exames de rotina ajuda na prevenção e detecção precoce de doenças. Consulte seu médico regularmente.</p>
                 </div>
-                <div class="box">
+                <div className="box">
                     <img src={icon} alt="Imagem da home" />
                     <h2>Saúde mental importa</h2>
                     <p> Ansiedade e estresse também merecem atenção. Tire um tempo para você e procure ajuda profissional se precisar.</p>
                 </div>
-                <div class="box">
+                <div className="box">
                     <img src={icon} alt="Imagem da home" />
                     <h2>Hidrate-se</h2>
                     <p> Beba ao menos 2 litros de água por dia e mantenha uma dieta variada. Seu corpo agradece.</p>

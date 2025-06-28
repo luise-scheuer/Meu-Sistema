@@ -60,13 +60,12 @@ button:active {
     background-color: #4d6477;
 }
 
-.container-forms {
-    width: 50%;
-    height: 20%;
+.container {
+    width: 75%;
 
     margin: 0;
     padding: 20px;
-    
+
     background-color: #D5E2E3;
     border-radius: 5px;
 }
@@ -122,4 +121,36 @@ input {
 
     border: none;
     border-radius: 10px;
+}
+
+
+.tabela-pacientes {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    border-collapse: collapse;
+    border: 2px solid #8c8c8c;
+}
+
+thead {
+    background-color: #7ca0be;
+    color: #f1f8ff;
+}
+
+tbody {
+    background-color: #FFFFFF;
+}
+
+th {
+    margin: 0;
+    padding: 5px;
+    border: 1px solid #c7c7c7;
+}
+
+.acoes {
+    border: none;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
