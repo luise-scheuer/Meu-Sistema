@@ -1,6 +1,5 @@
 nav {
     display: flex;
-    background-color: aqua;
     align-items: center;
     font-size: 22px;
     border-bottom: 1px solid black;
@@ -11,7 +10,7 @@ a {
 }
 
 #campos {
-    background-color: rgb(176, 176, 197);
+
     width: 100%;
     display: flex;
     gap: 30px;
