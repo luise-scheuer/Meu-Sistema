@@ -4,37 +4,37 @@ import "./paciente.css";
 export default function Paciente() {
     return (
         <>
-            <div class="container-paciente">
-                <h1 class="titulo"> Paciente </h1>
+            <div className="container-paciente">
+                <h1 className="titulo"> Paciente </h1>
 
-                <div class="container-opcoes">
-                    <button class="opcoes">Cadastrar</button>
-                    <button class="opcoes">Buscar</button>
+                <div className="container-opcoes">
+                    <button className="opcoes">Cadastrar</button>
+                    <button className="opcoes">Buscar</button>
                 </div>
 
-                <div class="container">
+                <div className="container">
                     <form action="">
-                        <div class="informacoes">
+                        <div className="informacoes">
                             <label htmlFor="paciente-nome"> Nome do Paciente: </label>
                             <input type="text" name="paciente-nome" id="paciente-nome" />
                         </div>
 
-                        <div class="informacoes">
+                        <div className="informacoes">
                             <label htmlFor="paciente-cpf"> CPF: </label>
                             <input type="text" name="paciente-cpf" id="paciente-cpf" />
                         </div>
 
-                        <div class="informacoes">
+                        <div className="informacoes">
                             <label htmlFor="paciente-nascimento"> Data de Nascimento: </label>
                             <input type="date" name="paciente-nascimento" id="paciente-nascimento" />
                         </div>
 
-                        <div class="informacoes">
+                        <div className="informacoes">
                             <label htmlFor="paciente-endereco"> Endereço: </label>
                             <input type="text" name="paciente-endereco" id="paciente-endereco" />
                         </div>
 
-                        <div class="informacoes">
+                        <div className="informacoes">
                             <label htmlFor="paciente-telefone"> Telefone: </label>
                             <input type="text" name="paciente-telefone" id="paciente-telefone" />
                         </div>
@@ -44,7 +44,7 @@ export default function Paciente() {
                     </form>
                 </div>
 
-                <div class="container">
+                <div className="container">
                     <table className="tabela-pacientes">
                         <thead>
                             <tr>
@@ -57,7 +57,7 @@ export default function Paciente() {
                             <tr>
                                 <th>NOME DO PACIENTE</th>
                                 <th>CPF DO PACIENTE</th>
-                                <th class="acoes">
+                                <th className="acoes">
                                     <MdCreate fontSize="30px" color="#4d6477"/>
                                     <MdDeleteForever fontSize="30px" color="#d64859"/>
                                 </th>
