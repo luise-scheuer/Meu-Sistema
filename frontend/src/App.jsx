@@ -1,13 +1,11 @@
-import NavBar from "./components/NavBar/navbar";
-
+import NavBar from "./components/NavBar/navBar";
+import Home from "./pages/Home/home";
 function App() {
 
   return (
     <>
-      <div>
-        oi
-      </div>
       <NavBar />
+      <Home></Home>
     </> 
   )
 };
