@@ -10,8 +10,8 @@ function App() {
   return (
     <>
       <NavBar />
-      <Home></Home>
       <Routes>
+        <Route path="/" element={<Home />}/>
         <Route path="/paciente" element={<Paciente />}/>
       </Routes>
       <Footer></Footer>
