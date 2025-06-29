@@ -5,6 +5,7 @@ import FormPaciente from "./components/FormPaciente/formPaciente";
 import ItemPaciente from "./components/ItemPaciente/itemPaciente";
 import BuscaCPF from "./components/BuscaCPF/buscaCpf";
 import EditarPaciente from "./components/EditarPaciente/editarPaciente";
+import ConfirmarDelete from "./components/ConfirmarDelete/confirmarDelete";
 
 import "./paciente.css";
 
@@ -14,6 +15,9 @@ export default function Paciente() {
     const [pacientes, setPacientes] = useState([]);
 
     const [pacienteEditando, setPacienteEditando] = useState(null);
+
+    const [modalVisivel, setModalVisivel] = useState(false);
+    const [pacienteParaDeletar, setPacienteParaDeletar] = useState(null);
 
     async function fetchPacientes() {
         try {
@@ -70,6 +74,31 @@ export default function Paciente() {
         }
     }
 
+    // Função chamada ao clicar no ícone de deletar
+    function abrirModalDeletar(paciente) {
+        setPacienteParaDeletar(paciente);
+        setModalVisivel(true);
+    }
+
+    // Confirmar exclusão
+    async function confirmarDeletar() {
+        if (!pacienteParaDeletar) return;
+
+        try {
+            await api.delete(`/pacientes/${pacienteParaDeletar._id}`);
+            setModalVisivel(false);
+            setPacienteParaDeletar(null);
+            fetchPacientes();
+        } catch (error) {
+            console.log("Erro ao deletar paciente:", error);
+        }
+    }
+
+    // Cancelar exclusão
+    function cancelarDeletar() {
+        setModalVisivel(false);
+        setPacienteParaDeletar(null);
+    }
 
     return (
         <>
@@ -80,6 +109,13 @@ export default function Paciente() {
                     <button className="opcoes" onClick={() => { setOpcaoSelecionada("cadastrar"); setPacienteEditando(null); }}>Cadastrar</button>
                     <button className="opcoes" onClick={() => { setOpcaoSelecionada("buscar"); setPacienteEditando(null); }}>Buscar</button>
                 </div>
+
+                <ConfirmarDelete
+                    visible={modalVisivel}
+                    message={`Deseja realmente deletar o paciente "${pacienteParaDeletar?.nome}"?`}
+                    onConfirm={confirmarDeletar}
+                    onCancel={cancelarDeletar}
+                />
 
                 {pacienteEditando ? (
                     <EditarPaciente
@@ -93,7 +129,7 @@ export default function Paciente() {
                         {opcaoSelecionada === "buscar" && (
                             <div className="container">
                                 <div className="busca">
-                                     <BuscaCPF onBuscar={buscarPacientePorCPF} onLimpar={limparBusca} />
+                                    <BuscaCPF onBuscar={buscarPacientePorCPF} onLimpar={limparBusca} />
                                 </div>
 
                                 <table className="tabela-pacientes">
@@ -109,7 +145,9 @@ export default function Paciente() {
                                             <tr><th colSpan="3"> Nenhum paciente encontrado </th></tr>
                                         ) : (
                                             listaPacientes.map((paciente) => (
-                                                <ItemPaciente key={paciente._id} paciente={paciente} onEdit={handleEditarPaciente} />
+                                                <ItemPaciente key={paciente._id} paciente={paciente}
+                                                    onEdit={handleEditarPaciente} onDelete={() => abrirModalDeletar(paciente)}
+                                                />
                                             ))
                                         )}
                                     </tbody>
