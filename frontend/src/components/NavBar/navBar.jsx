@@ -8,7 +8,7 @@ export default function NavBar() {
                 <img src={logo} alt="" />
             </div>
             <div id="campos">
-                <Link to="/">Profissional</Link>
+                <Link to="/profissional">Profissional</Link>
                 <Link to="/paciente">Paciente</Link>
                 <Link to="/">Especialidade</Link>
                 <Link to="/">Atendimento</Link>

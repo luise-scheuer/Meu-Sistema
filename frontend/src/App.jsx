@@ -3,7 +3,7 @@ import Footer from "./components/Footer/footer";
 import NavBar from "./components/NavBar/navBar";
 import Home from "./pages/Home/home";
 import Paciente from "./pages/Paciente/paciente";
-
+import Profissional from "./pages/Profissional/profissional";
 
 function App() {
 

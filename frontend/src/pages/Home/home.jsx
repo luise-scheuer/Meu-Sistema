@@ -6,7 +6,7 @@ export default function Home() {
         <main>
             <div id="inicial">
                 <div id="titulo">
-                    <h1><span class="destaque">Sistema</span> de Gerenciamento Hospitalar</h1>
+                    <h1><span className="destaque">Sistema</span> de Gerenciamento Hospitalar</h1>
                     <p>Otimize seu tempo com um sistema simples. Cadastre pacientes, médicos e atendimentos com rapidez e segurança.</p>
                 </div>
 

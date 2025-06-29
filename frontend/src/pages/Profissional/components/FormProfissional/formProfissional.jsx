@@ -42,7 +42,7 @@ export default function FormProfissional({ onSubmit }) {
 
                 <div className="informacoes">
                     <label htmlFor="profissional-nascimento"> Especialidade: </label>
-                    <input type="date" name="profissional-nascimento" id="profissional-nascimento"
+                    <input type="text" name="profissional-nascimento" id="profissional-nascimento"
                         value={profissionalEspecialidade} onChange={(e) => { setProfissionalEspecialidade(e.target.value) }}
                     />
                 </div>              
