@@ -11,3 +11,7 @@ footer{
     font-size: 16px;
     text-align: center;
 }
+
+#texto-footer {
+    font-family: "Quicksand";
+}
