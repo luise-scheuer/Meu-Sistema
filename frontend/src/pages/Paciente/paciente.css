@@ -54,6 +54,7 @@ button {
 
 button:hover {
     background-color: #5a7c99;
+    cursor: pointer;
 }
 
 button:active {
@@ -124,6 +125,10 @@ input {
     border-radius: 10px;
 }
 
+#enviar:disabled{
+    background-color: #2b363f;
+    cursor: not-allowed;
+}
 
 .tabela-pacientes {
     margin: 0;

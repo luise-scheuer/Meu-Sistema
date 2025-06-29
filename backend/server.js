@@ -1,12 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-//const path = require('path');
+const cors = require("cors");
 const routes = require('./src/routes'); // IMPORTANTO O ARQUIVO DE ROTAS
 
 const app = express();
+app.use(cors());
 app.use(express.json());
-//app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
 
 const MONGO_URI = process.env.MONGODB_URI;
