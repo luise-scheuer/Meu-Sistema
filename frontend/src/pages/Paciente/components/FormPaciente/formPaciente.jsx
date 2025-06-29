@@ -17,7 +17,7 @@ export default function FormPaciente({onSubmit}) {
         await onSubmit({
             nome: pacienteNome,
             cpf: pacienteCPF,
-            dataNascimento: Date(pacienteNascimento),
+            dataNascimento: new Date(pacienteNascimento),
             endereco: pacienteEndereco,
             telefone: pacienteTelefone
         });
