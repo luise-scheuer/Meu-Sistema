@@ -41,11 +41,11 @@ export default function FormProfissional({ onSubmit }) {
                 </div>
 
                 <div className="informacoes">
-                    <label htmlFor="profissional-nascimento"> Especialidade: </label>
-                    <input type="text" name="profissional-nascimento" id="profissional-nascimento"
+                    <label htmlFor="profissional-especialidade"> Especialidade: </label>
+                    <input type="text" name="profissional-especialidade" id="profissional-especialidade"
                         value={profissionalEspecialidade} onChange={(e) => { setProfissionalEspecialidade(e.target.value) }}
                     />
-                </div>              
+                </div>
 
                 <button id="enviar" type="submit" disabled={!isFormValid}>Enviar</button>
 
