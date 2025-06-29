@@ -1,0 +1,15 @@
+import { MdCreate, MdDeleteForever } from "react-icons/md";
+import "../../profissional.css";
+
+export default function ItemProfissional({ profissional }) {
+    return (
+        <tr>
+            <th>{profissional.nome}</th>
+            <th>{profissional.crm}</th>
+            <th className="acoes">
+                <MdCreate className="icon-opcoes" id="icon-atualizar" />
+                <MdDeleteForever className="icon-opcoes" id="icon-deletar" />
+            </th>
+        </tr>
+    );
+}
