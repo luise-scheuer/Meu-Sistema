@@ -12,6 +12,11 @@ class ProfissionalRepository {
         return profissional;
     }
 
+    async findByCrm(crm) {
+        const profissional = await Profissional.findOne({ crm });
+        return profissional;
+    }
+
     async create({ nome, crm, especialidade }) {
         const profissional = new Profissional({
             nome, crm, especialidade

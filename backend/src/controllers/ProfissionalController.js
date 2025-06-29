@@ -4,10 +4,10 @@ const ProfissionalRepository = require("../repositories/ProfissonalRepository");
 class ProfissionalController {
     //Busca todos
     async index(req, res) {
-        const profissional = await PacienteRepository.findAll();
+        const profissional = await ProfissionalRepository.findAll();
 
         if (!profissional) {
-            return res.status(404).json({ error: "Pacientes não encontrados!" });
+            return res.status(404).json({ error: "Profissionais não encontrados!" });
         }
         res.json(profissional);
     }
@@ -21,7 +21,7 @@ class ProfissionalController {
 
         const profissional = await ProfissionalRepository.findById(id);
         if (!profissional) {
-            return res.status(404).json({ message: "Paciente com esse ID não encontrado" });
+            return res.status(404).json({ message: "Profissional com esse ID não encontrado" });
         }
         res.json(profissional);
     }
@@ -75,7 +75,7 @@ class ProfissionalController {
         const { nome, crm, especialidade } = req.body;
         const profissional = await ProfissionalRepository.findById(id);
         if (!profissional) {
-            return res.status(404).json({ error: "Paciente não encontrado!!!" });
+            return res.status(404).json({ error: "Profissional não encontrado!!!" });
         }
         if (crm) {
             const profissionalCrm = await ProfissionalRepository.findByCrm(crm);
@@ -99,7 +99,7 @@ class ProfissionalController {
             return res.status(400).json({ error: "ID inválido" });
         }
         if (!id) {
-            return res.status(400).json({ error: "ID de Paciente Inválido" });
+            return res.status(400).json({ error: "ID de Profissional Inválido" });
 
         }
         await ProfissionalRepository.delete(id);
