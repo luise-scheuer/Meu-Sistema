@@ -67,6 +67,10 @@ button:active {
     margin: 0;
     padding: 20px;
 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
     background-color: #D5E2E3;
     border-radius: 5px;
 }
@@ -113,6 +117,8 @@ input {
     font-size: 15px;
 }
 
+
+/* ----------------------- BOTÃO FORMULÁRIO ----------------------- */
 #enviar {
     width: 50%;
     margin-top: 20px;
@@ -130,6 +136,29 @@ input {
     cursor: not-allowed;
 }
 
+
+/* ----------------------- BUSCAR CPF ----------------------- */
+.busca {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.busca input {
+    width: 70%;
+}
+
+.busca label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+/* ----------------------- TABELA DE PACIENTES ----------------------- */
 .tabela-pacientes {
     margin: 0;
     padding: 0;
@@ -154,9 +183,48 @@ th {
     border: 1px solid #c7c7c7;
 }
 
-.acoes {
+.th-nome {
+    width: 50%;
+}
+
+.th-cpf {
+    width: 30%;
+}
+
+.th-opcoes {
+    width: 20%;
+}
+
+
+/* ----------------------- ICONES ----------------------- */
+.icon-opcoes {
+    margin: 0 10px;
+    font-size: 30px;
+}
+
+.botoes {
     border: none;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    border-radius: 5px;
+    width: 40px;
+    height: 35px;
+}
+
+#icon-atualizar{
+    color: #4d6477;
+}
+
+#icon-deletar {
+    color: #d64859;
+}
+
+#icon-buscar {
+    font-size: 30px;
+    color: "#f1f8ff"
+}
+
+#icon-limpar {
+    font-size:25px;
+    color: "#f1f8ff";
+
+    padding-top: 2px;
 }

@@ -1,28 +1,15 @@
 import { MdCreate, MdDeleteForever } from "react-icons/md";
 import "../../paciente.css";
 
-export default function ItemPaciente() {
+export default function ItemPaciente({ paciente }) {
     return (
-        <div className="container">
-            <table className="tabela-pacientes">
-                <thead>
-                    <tr>
-                        <th>NOME</th>
-                        <th>CPF</th>
-                        <th>OPÇÕES</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th>NOME DO PACIENTE</th>
-                        <th>CPF DO PACIENTE</th>
-                        <th className="acoes">
-                            <MdCreate fontSize="30px" color="#4d6477" />
-                            <MdDeleteForever fontSize="30px" color="#d64859" />
-                        </th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <tr>
+            <th>{paciente.nome}</th>
+            <th>{paciente.cpf}</th>
+            <th className="acoes">
+                <MdCreate className="icon-opcoes" id="icon-atualizar" />
+                <MdDeleteForever className="icon-opcoes" id="icon-deletar"/>
+            </th>
+        </tr>
     );
 }
