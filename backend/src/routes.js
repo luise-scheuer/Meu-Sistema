@@ -22,8 +22,13 @@ routes.get("/profissional/:id", ProfissionalController.show);
 routes.post("/profissional", ProfissionalController.store);
 routes.put("/profissional/:id", ProfissionalController.update);
 routes.delete("/profissional/:id", ProfissionalController.destroy);
-// --------- ESPECIALIDADES ----------
 
+// --------- ESPECIALIDADES ----------
+routes.get("/especialidades", EspecialidadeController.index);
+routes.get("/especialidades/:id", EspecialidadeController.show);
+routes.post("/especialidades", EspecialidadeController.store);
+routes.put("/especialidades/:id", EspecialidadeController.update);
+routes.delete("/especialidades/:id", EspecialidadeController.destroy);
 
 // --------- ATENDIMENTOS ----------
 routes.get("/atendimentos", AtendimentoController.index);
