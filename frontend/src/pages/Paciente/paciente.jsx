@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
-import { MdManageSearch, MdCleaningServices } from "react-icons/md";
 import api from "../../services/api";
+
 import FormPaciente from "./components/FormPaciente/formPaciente";
 import ItemPaciente from "./components/ItemPaciente/itemPaciente";
+import BuscaCPF from "./components/BuscaCPF/buscaCpf";
+import EditarPaciente from "./components/EditarPaciente/editarPaciente";
+import ConfirmarDelete from "./components/ConfirmarDelete/confirmarDelete";
+
 import "./paciente.css";
 
 export default function Paciente() {
@@ -10,8 +14,10 @@ export default function Paciente() {
     const [listaPacientes, setListaPacientes] = useState([]);
     const [pacientes, setPacientes] = useState([]);
 
-    const [buscaCPF, setBuscaCPF] = useState("");
+    const [pacienteEditando, setPacienteEditando] = useState(null);
 
+    const [modalVisivel, setModalVisivel] = useState(false);
+    const [pacienteParaDeletar, setPacienteParaDeletar] = useState(null);
 
     async function fetchPacientes() {
         try {
@@ -35,15 +41,63 @@ export default function Paciente() {
         }
     }
 
-    async function handleBuscarCPF() {
+    async function buscarPacientePorCPF(cpf) {
         try {
-            const response = await api.get(`/pacientes/cpf/${buscaCPF.trim()}`);
+            const response = await api.get(`/pacientes/cpf/${cpf}`);
             const resultado = Array.isArray(response.data) ? response.data : [response.data];
             setListaPacientes(resultado);
         } catch (error) {
-            console.log("Erro ao buscar CPf: ", error);
-            setListaPacientes([]); //Limpa a tabela caso não encontre
+            console.log("Erro ao buscar CPF:", error);
+            setListaPacientes([]);
         }
+    }
+
+    function limparBusca() {
+        fetchPacientes();
+    }
+
+    function handleEditarPaciente(paciente) {
+        setPacienteEditando(paciente);
+    }
+
+    function handleCancelarEdicao() {
+        setPacienteEditando(null);
+    }
+
+    async function handleUpdatePaciente(data) {
+        try {
+            await api.put(`/pacientes/${data._id}`, data);
+            setPacienteEditando(null);
+            fetchPacientes(); // atualiza a tabela
+        } catch (error) {
+            console.log("Erro ao atualizar paciente:", error);
+        }
+    }
+
+    // Função chamada ao clicar no ícone de deletar
+    function abrirModalDeletar(paciente) {
+        setPacienteParaDeletar(paciente);
+        setModalVisivel(true);
+    }
+
+    // Confirmar exclusão
+    async function confirmarDeletar() {
+        if (!pacienteParaDeletar) return;
+
+        try {
+            await api.delete(`/pacientes/${pacienteParaDeletar._id}`);
+            setModalVisivel(false);
+            setPacienteParaDeletar(null);
+            fetchPacientes();
+        } catch (error) {
+            console.log("Erro ao deletar paciente:", error);
+        }
+    }
+
+    // Cancelar exclusão
+    function cancelarDeletar() {
+        setModalVisivel(false);
+        setPacienteParaDeletar(null);
     }
 
     return (
@@ -52,51 +106,56 @@ export default function Paciente() {
                 <h1 className="titulo"> Paciente </h1>
 
                 <div className="container-opcoes">
-                    <button className="opcoes" onClick={() => setOpcaoSelecionada("cadastrar")}>Cadastrar</button>
-                    <button className="opcoes" onClick={() => setOpcaoSelecionada("buscar")}>Buscar</button>
+                    <button className="opcoes" onClick={() => { setOpcaoSelecionada("cadastrar"); setPacienteEditando(null); }}>Cadastrar</button>
+                    <button className="opcoes" onClick={() => { setOpcaoSelecionada("buscar"); setPacienteEditando(null); }}>Buscar</button>
                 </div>
 
+                <ConfirmarDelete
+                    visible={modalVisivel}
+                    message={`Deseja realmente deletar o paciente "${pacienteParaDeletar?.nome}"?`}
+                    onConfirm={confirmarDeletar}
+                    onCancel={cancelarDeletar}
+                />
 
-                {opcaoSelecionada === "cadastrar" && <FormPaciente onSubmit={handleAddPaciente} />}
-                {opcaoSelecionada === "buscar" && <div className="container">
-                    <div className="busca">
-                        <label htmlFor="busca-cpf"> CPF: </label>
-                        <input type="text" name="busca-cpf" id="busca-cpf"
-                            value={buscaCPF} onChange={(e) => { setBuscaCPF(e.target.value) }}
-                            placeholder="Insira o CPF cadastrado a ser buscado"
-                        />
-                        <button className="botoes" onClick={handleBuscarCPF}>
-                            <MdManageSearch id="icon-buscar" />
-                        </button>
-                        <button className="botoes" onClick={() => { setBuscaCPF(""); fetchPacientes() }}>
-                            <MdCleaningServices id="icon-limpar" />
-                        </button>
-                    </div>
+                {pacienteEditando ? (
+                    <EditarPaciente
+                        paciente={pacienteEditando}
+                        onSubmit={handleUpdatePaciente}
+                        onCancel={handleCancelarEdicao}
+                    />
+                ) : (
+                    <>
+                        {opcaoSelecionada === "cadastrar" && <FormPaciente onSubmit={handleAddPaciente} />}
+                        {opcaoSelecionada === "buscar" && (
+                            <div className="container">
+                                <div className="busca">
+                                    <BuscaCPF onBuscar={buscarPacientePorCPF} onLimpar={limparBusca} />
+                                </div>
 
-                    <table className="tabela-pacientes">
-                        <thead>
-                            <tr>
-                                <th className="th-nome">NOME</th>
-                                <th className="th-cpf">CPF</th>
-                                <th className="th-opcoes">OPÇÕES</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {listaPacientes.length === 0 ? (
-                                <tr>
-                                    <th colSpan="3"> Nenhum paciente encontrado </th>
-                                </tr>
-                            ) :
-                            (
-                                listaPacientes.map((paciente) => (
-                                    <ItemPaciente key={paciente.id} paciente={paciente} />
-                                ))
-
-                            )}
-
-                        </tbody>
-                    </table>
-                </div>}
+                                <table className="tabela-pacientes">
+                                    <thead>
+                                        <tr>
+                                            <th className="th-nome">NOME</th>
+                                            <th className="th-cpf">CPF</th>
+                                            <th className="th-opcoes">OPÇÕES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {listaPacientes.length === 0 ? (
+                                            <tr><th colSpan="3"> Nenhum paciente encontrado </th></tr>
+                                        ) : (
+                                            listaPacientes.map((paciente) => (
+                                                <ItemPaciente key={paciente._id} paciente={paciente}
+                                                    onEdit={handleEditarPaciente} onDelete={() => abrirModalDeletar(paciente)}
+                                                />
+                                            ))
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+                        )}
+                    </>
+                )}
             </div>
 
         </>
