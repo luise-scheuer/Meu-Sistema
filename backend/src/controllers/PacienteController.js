@@ -44,8 +44,6 @@ class PacienteController {
     async store(req, res) {
         const { nome, cpf, dataNascimento, endereco, telefone } = req.body;
 
-
-
         if (!nome || !cpf || !dataNascimento || !endereco || !telefone) {
             return res.status(400).json({ error: "Preencha todos os campos!!!" });
         }
@@ -53,9 +51,8 @@ class PacienteController {
         if (cpf) {
             const pacienteCpf = await PacienteRepository.findByCpf(cpf);
 
-            // Só bloqueia se o paciente encontrado for outro (id diferente)
-            if (pacienteCpf && pacienteCpf._id.toString() !== id) {
-                return res.status(400).json({ error: "Esse CPF já está cadastrado em outro paciente!!!" });
+            if (pacienteCpf) {
+                return res.status(400).json({ error: "Esse CPF já está cadastrado!!!" });
             }
         }
 
