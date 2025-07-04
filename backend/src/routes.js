@@ -17,7 +17,7 @@ routes.delete("/pacientes/:id", PacienteController.destroy);
 
 // --------- PROFISSIONAIS ----------
 routes.get("/profissionais", ProfissionalController.index);
-routes.get('/profissionais/nome/:nome', ProfissionalController.searchByNome);
+routes.get('/profissionais/nome/:nome', ProfissionalController.showByNome);
 routes.get("/profissionais/:id", ProfissionalController.show);
 routes.post("/profissionais", ProfissionalController.store);
 routes.put("/profissionais/:id", ProfissionalController.update);
@@ -25,6 +25,7 @@ routes.delete("/profissionais/:id", ProfissionalController.destroy);
 
 // --------- ESPECIALIDADES ----------
 routes.get("/especialidades", EspecialidadeController.index);
+routes.get("/especialidades/nome/:nome", EspecialidadeController.showByNome);
 routes.get("/especialidades/:id", EspecialidadeController.show);
 routes.post("/especialidades", EspecialidadeController.store);
 routes.put("/especialidades/:id", EspecialidadeController.update);

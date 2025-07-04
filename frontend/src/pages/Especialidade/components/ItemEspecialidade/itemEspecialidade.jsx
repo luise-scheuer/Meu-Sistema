@@ -1,14 +1,13 @@
 import { MdCreate, MdDeleteForever } from "react-icons/md";
-import "../index.css";
+import "../../../index.css";
 
-export default function ItemEspecialidade() {
+export default function ItemEspecialidade({ especialidade, onEdit, onDelete }) {
     return (
         <tr>
-            <th>a</th>
-            <th>a</th>
+            <th>{especialidade.area}</th>
             <th className="acoes">
-                <MdCreate className="icon-opcoes" id="icon-atualizar"  />
-                <MdDeleteForever className="icon-opcoes" id="icon-deletar"  />
+                <MdCreate className="icon-opcoes" id="icon-atualizar" onClick={() => onEdit && onEdit(especialidade)} />
+                <MdDeleteForever className="icon-opcoes" id="icon-deletar" onClick={() => onDelete && onDelete()}/>
             </th>
         </tr>
     );
