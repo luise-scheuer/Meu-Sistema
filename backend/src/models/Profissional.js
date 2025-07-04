@@ -15,3 +15,4 @@ const profissionalSchema = new mongoose.Schema(
 );
 
 module.exports = mongoose.model('Profissional', profissionalSchema);
+//ORM X ODM -> sobre o mongoose
