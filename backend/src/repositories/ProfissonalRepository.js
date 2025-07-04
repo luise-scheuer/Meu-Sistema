@@ -12,11 +12,6 @@ class ProfissionalRepository {
         return profissional;
     }
 
-    async findByCrm(crm) {
-        const profissional = await Profissional.findOne({ crm }).populate("especialidade", "area");
-        return profissional;
-    }
-
     async create({ nome, crm, especialidade }) {
         const profissional = new Profissional({
             nome, crm, especialidade
@@ -24,6 +19,10 @@ class ProfissionalRepository {
         await profissional.save();
         return profissional;
 
+    }
+
+    async findByNomeRegex(regex) {
+        return await Profissional.find({ nome: regex });
     }
 
     async update(id, { nome, crm, especialidade }) {
