@@ -78,31 +78,50 @@ class ProfissionalController {
         })
         res.status(201).json(profissional);
     }
-    //Atualizar por ID -> criado por padrão, não será implementado no front-end
-    async update(req, res) {
-        const { id } = req.params;
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            return res.status(400).json({ error: "ID Inválido" });
-        }
-        const { nome, crm, especialidade } = req.body;
-        const profissional = await ProfissionalRepository.findById(id);
-        if (!profissional) {
-            return res.status(404).json({ error: "Profissional não encontrado!!!" });
-        }
-        if (crm) {
-            const profissionalCrm = await ProfissionalRepository.findByCrm(crm);
-            if (profissionalCrm) {
-                return res.status(400).json({ error: "Esse CRM já está cadastrado em outro Profissional" });
-            }
-        }
-        const profissionalAtualizado = await ProfissionalRepository.update(id, {
-            nome: nome ?? profissional.nome,
-            crm: crm ?? profissional.crm,
-            especialidade: especialidade ?? profissional.especialidade
-        });
 
-        res.status(200).json(profissionalAtualizado);
+
+
+    async update(req, res) {
+        try {
+            const { id } = req.params;
+            const { nome, crm, especialidade } = req.body;
+
+            console.log('UPDATE PROFISSIONAL:');
+            console.log('ID:', id);
+            console.log('Dados recebidos:', req.body);
+
+            if (!mongoose.Types.ObjectId.isValid(id)) {
+                return res.status(400).json({ error: "ID inválido!!!" });
+            }
+
+            const profissional = await ProfissionalRepository.findById(id);
+            if (!profissional) {
+                return res.status(404).json({ error: "Profissional não encontrado!!!" });
+            }
+
+
+            if (crm) {
+                const profissionalCrm = await ProfissionalRepository.findByCrm(crm);
+                console.log('Profissional com mesmo CRM encontrado:', profissionalCrm ? profissionalCrm._id.toString() : null);
+
+                if (profissionalCrm && profissionalCrm._id.toString() !== id) {
+                    return res.status(400).json({ error: "Esse CRM já está cadastrado em outro profissional!!!" });
+                }
+            }
+
+            const profissionalAtualizado = await ProfissionalRepository.update(id, {
+                nome: nome ?? profissional.nome,
+                crm: crm ?? profissional.crm,
+                especialidade: especialidade ?? profissional.especialidade
+            });
+
+            res.status(200).json(profissionalAtualizado);
+        } catch (error) {
+            console.error('Erro ao atualizar profissional:', error);
+            return res.status(500).json({ error: "Erro interno no servidor." });
+        }
     }
+
 
     // Deletar por ID -> criado por padrão, não será implementado no front-end
     async destroy(req, res) {
