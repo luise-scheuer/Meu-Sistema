@@ -16,7 +16,7 @@ class PacienteController {
     //Busca específico por ID -> criado por padrão, não será implementado no front-end
     async show(req, res) {
         const { id } = req.params;
-        if(!mongoose.Types.ObjectId.isValid(id)){ //valida para não entrar na rota errada
+        if (!mongoose.Types.ObjectId.isValid(id)) { //valida para não entrar na rota errada
             return res.status(400).json({ error: "ID inválido!!!" });
         }
 
@@ -44,15 +44,18 @@ class PacienteController {
     async store(req, res) {
         const { nome, cpf, dataNascimento, endereco, telefone } = req.body;
 
-        if(!nome || !cpf || !dataNascimento || !endereco || !telefone){
+
+
+        if (!nome || !cpf || !dataNascimento || !endereco || !telefone) {
             return res.status(400).json({ error: "Preencha todos os campos!!!" });
         }
 
-        if(cpf) {
+        if (cpf) {
             const pacienteCpf = await PacienteRepository.findByCpf(cpf);
 
-            if(pacienteCpf) {
-                return res.status(400).json({ error: "Esse CPF já está cadastrado!!!" });
+            // Só bloqueia se o paciente encontrado for outro (id diferente)
+            if (pacienteCpf && pacienteCpf._id.toString() !== id) {
+                return res.status(400).json({ error: "Esse CPF já está cadastrado em outro paciente!!!" });
             }
         }
 
@@ -65,50 +68,61 @@ class PacienteController {
 
     //Atualizar por ID -> criado por padrão, não será implementado no front-end
     async update(req, res) {
-        const { id } = req.params;
-        if(!mongoose.Types.ObjectId.isValid(id)){
-            return res.status(400).json({ error: "ID inválido!!!" });
-        }
+        try {
+            const { id } = req.params;
+            const { nome, cpf, dataNascimento, endereco, telefone } = req.body;
 
-        const { nome, cpf, dataNascimento, endereco, telefone } = req.body;
-        const paciente = await PacienteRepository.findById(id);
-        if(!paciente) {
-            return res.status(404).json({ error: "Paciente não encontrado!!!"})
-        }
+            console.log('UPDATE PACIENTE:');
+            console.log('ID:', id);
+            console.log('Dados recebidos:', req.body);
 
-        if(cpf) {
-            const pacienteCpf = await PacienteRepository.findByCpf(cpf);
-
-            if(pacienteCpf) {
-                return res.status(400).json({ error: "Esse CPF já está cadastrado em outro paciente!!!" });
+            if (!mongoose.Types.ObjectId.isValid(id)) {
+                return res.status(400).json({ error: "ID inválido!!!" });
             }
+
+            const paciente = await PacienteRepository.findById(id);
+            if (!paciente) {
+                return res.status(404).json({ error: "Paciente não encontrado!!!" });
+            }
+
+            if (cpf) {
+                const pacienteCpf = await PacienteRepository.findByCpf(cpf);
+                console.log('Paciente com mesmo CPF encontrado:', pacienteCpf ? pacienteCpf._id.toString() : null);
+
+                if (pacienteCpf && pacienteCpf._id.toString() !== id) {
+                    return res.status(400).json({ error: "Esse CPF já está cadastrado em outro paciente!!!" });
+                }
+            }
+
+            const pacienteAtualizado = await PacienteRepository.update(id, {
+                nome: nome ?? paciente.nome,
+                cpf: cpf ?? paciente.cpf,
+                dataNascimento: dataNascimento ?? paciente.dataNascimento,
+                endereco: endereco ?? paciente.endereco,
+                telefone: telefone ?? paciente.telefone,
+            });
+
+            return res.status(200).json(pacienteAtualizado);
+        } catch (error) {
+            console.error('Erro ao atualizar paciente:', error);
+            return res.status(500).json({ error: "Erro interno no servidor." });
         }
-
-        const pacienteAtualizado = await PacienteRepository.update(id, {
-            nome: nome ?? paciente.nome,
-            cpf: cpf ?? paciente.cpf,
-            dataNascimento: dataNascimento ?? paciente.dataNascimento,
-            endereco: endereco ?? paciente.endereco,
-            telefone: telefone ?? paciente.telefone
-        });
-
-        res.status(200).json(pacienteAtualizado);
     }
-    
+
     //Atualizar por CPF -> será implementado no front-end
     async updateByCpf(req, res) {
         const { cpf } = req.params;
         const { nome, novoCpf, dataNascimento, endereco, telefone } = req.body;
 
         const paciente = await PacienteRepository.findByCpf(cpf);
-        if(!paciente) {
-            return res.status(404).json({ error: "Paciente não encontrado!!!"})
+        if (!paciente) {
+            return res.status(404).json({ error: "Paciente não encontrado!!!" })
         }
 
-        if(novoCpf && novoCpf !== paciente.cpf) {
+        if (novoCpf && novoCpf !== paciente.cpf) {
             const pacienteCpf = await PacienteRepository.findByCpf(novoCpf);
 
-            if(pacienteCpf) {
+            if (pacienteCpf) {
                 return res.status(400).json({ error: "Esse CPF já está cadastrado em outro paciente!!!" });
             }
         }
@@ -123,32 +137,32 @@ class PacienteController {
 
         res.status(200).json(pacienteAtualizado);
     }
-    
+
     // Deletar por ID -> criado por padrão, não será implementado no front-end
     async destroy(req, res) {
         const { id } = req.params;
-        if(!mongoose.Types.ObjectId.isValid(id)){
+        if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ error: "ID inválido!!!" });
         }
 
-        if(!id){
-            return res.status(400).json({ error: "ID de Paciente inválido!!!"});
+        if (!id) {
+            return res.status(400).json({ error: "ID de Paciente inválido!!!" });
         }
 
         await PacienteRepository.delete(id);
         res.sendStatus(204);
     }
-    
+
     // Deletar por CPF -> será implementado no front-end
     async destroyByCPF(req, res) {
         const { cpf } = req.params;
 
-        if(!cpf){
-            return res.status(400).json({ error: "CPF de Paciente inválido!!!"});
+        if (!cpf) {
+            return res.status(400).json({ error: "CPF de Paciente inválido!!!" });
         }
 
         const paciente = await PacienteRepository.findByCpf(cpf)
-        if(!paciente){
+        if (!paciente) {
             return res.status(404).json({ error: "Paciente não encontrado!!!" });
         }
 
