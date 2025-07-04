@@ -22,7 +22,7 @@ export default function FormProfissional({ onSubmit }) {
         }
 
         fetchEspecialidades();
-    }, []);
+    }, [listaEspecialidades]);
 
     async function handleSubmit(e) {
         e.preventDefault();

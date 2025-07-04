@@ -1,16 +1,31 @@
 import { useState, useEffect } from "react";
+import api from "../../../../services/api";
 import "../../profissional.css";
 
 export default function EditarProfissional({ profissional, onSubmit, onCancel }) {
     const [nome, setNome] = useState("");
     const [crm, setCrm] = useState("");
     const [especialidade, setEspecialidade] = useState("");
+    const [listaEspecialidades, setListaEspecialidades] = useState([]);
+
+    useEffect(() => {
+        async function fetchEspecialidades() {
+            try {
+                const response = await api.get("/especialidades");
+                setListaEspecialidades(response.data);
+            } catch (error) {
+                console.error("Erro ao buscar especialidades:", error);
+            }
+        }
+
+        fetchEspecialidades();
+    }, []);
 
     useEffect(() => {
         if (profissional) {
             setNome(profissional.nome || "");
             setCrm(profissional.crm || "");
-            setEspecialidade(profissional.especialidade || "");
+            setEspecialidade( profissional.especialidade?._id || profissional.especialidade || "" );
         }
     }, [profissional]);
 
@@ -42,7 +57,17 @@ export default function EditarProfissional({ profissional, onSubmit, onCancel })
 
                 <div className="informacoes">
                     <label>Especialidade:</label>
-                    <input value={especialidade} onChange={(e) => setEspecialidade(e.target.value)} />
+                    <select
+                        value={especialidade}
+                        onChange={(e) => setEspecialidade(e.target.value)}
+                    >
+                        <option value="">Selecione uma especialidade</option>
+                        {listaEspecialidades.map((esp) => (
+                            <option key={esp._id} value={esp._id}>
+                                {esp.area}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 <div className="buttons">

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { MdManageSearch, MdCleaningServices } from "react-icons/md";
 import api from "../../services/api";
 
 import FormProfissional from "./components/FormProfissional/formProfissional";
 import ItemProfissional from "./components/ItemProfissional/itemProfissional";
+import EditarProfissional from "./components/EditarProfissional/editarProfissional";
+import BuscarNome from "./components/BuscarNome/buscarNome";
 
 import ConfirmarDelete from "../../components/ConfirmarDelete/confirmarDelete";
 import SucessoModal from "../../components/SucessoModal/sucessoModal";
@@ -14,9 +15,9 @@ import "../index.css";
 export default function Profissional() {
     const [opcaoSelecionada, setOpcaoSelecionada] = useState("");
     const [listaProfissional, setListaProfissional] = useState([]);
-    const [profissional, setProfissional] = useState([]);
+    const [profissionais, setProfissionais] = useState([]);
 
-    const [buscaNome, setBuscaNome] = useState("");
+    const [profissionalEditando, setProfissionalEditando] = useState(null);
 
     //Modal
     //const [modalDeleteVisivel, setModalDeleteVisivel] = useState(false);
@@ -29,18 +30,18 @@ export default function Profissional() {
             const response = await api.get("/profissional");
             setListaProfissional(response.data);
         } catch (error) {
-            console.log("Erro ao buscar profissional: ", error);
+            console.log("Erro ao buscar profissionais: ", error);
         }
     }
 
     useEffect(() => {
         fetchProfissional();
-    }, [profissional]);
+    }, [profissionais]);
 
     async function handleAddProfissional(data) {
         try {
             const response = await api.post("/profissional", data);
-            setProfissional([...profissional, response.data]);
+            setProfissionais([...profissionais, response.data]);
             setMensagemSucesso("Profissional cadastrado com sucesso!");
             setModalSucessoVisivel(true);
         } catch (error) {
@@ -48,14 +49,38 @@ export default function Profissional() {
         }
     }
 
-    async function handleBuscarNome() {
+    async function buscarProfissionalNome(nome) {
         try {
-            const response = await api.get(`/profissional/nome/${buscaNome.trim()}`);
+            const response = await api.get(`/profissional/nome/${nome.trim()}`);
             const resultado = Array.isArray(response.data) ? response.data : [response.data];
             setListaProfissional(resultado);
         } catch (error) {
             console.log("Erro ao buscar Nome: ", error);
             setListaProfissional([]); //Limpa a tabela caso não encontre
+        }
+    }
+
+    function limparBusca() {
+        fetchProfissional();
+    }
+
+    function handleEditarProfissional(profissional) {
+        setProfissionalEditando(profissional);
+    }
+
+    function handleCancelarEdicao() {
+        setProfissionalEditando(null);
+    }
+
+    async function handleUpdateProfissional(data) {
+        try {
+            await api.put(`/profissional/${data._id}`, data);
+            setProfissionalEditando(null);
+            fetchProfissional(); // atualiza a tabela
+            setMensagemSucesso("Profissional atualizado com sucesso!");
+            setModalSucessoVisivel(true);
+        } catch (error) {
+            console.log("Erro ao atualizar profissional:", error);
         }
     }
 
@@ -76,47 +101,52 @@ export default function Profissional() {
                     onClose={() => setModalSucessoVisivel(false)}
                 />
 
-                {opcaoSelecionada === "cadastrar" && <FormProfissional onSubmit={handleAddProfissional} />}
-                {opcaoSelecionada === "buscar" && <div className="container">
-                    <div className="busca">
-                        <label htmlFor="busca-nome"> NOME: </label>
-                        <input type="text" name="busca-nome" id="busca-nome"
-                            value={buscaNome} onChange={(e) => { setBuscaNome(e.target.value) }}
-                            placeholder="Insira o nome cadastrado a ser buscado"
-                        />
-                        <button className="botoes" onClick={handleBuscarNome}>
-                            <MdManageSearch id="icon-buscar" />
-                        </button>
-                        <button className="botoes" onClick={() => { setBuscaNome(""); fetchProfissional() }}>
-                            <MdCleaningServices id="icon-limpar" />
-                        </button>
-                    </div>
+                {profissionalEditando ? (
+                    <EditarProfissional
+                        profissional={profissionalEditando}
+                        onSubmit={handleUpdateProfissional}
+                        onCancel={handleCancelarEdicao}
+                    />
 
-                    <table className="tabela-profissional">
-                        <thead>
-                            <tr>
-                                <th className="th-nome">NOME</th>
-                                <th className="th-crm">CRM</th>
-                                <th className="th-area">ÁREA</th>
-                                <th className="th-opcoes">OPÇÕES</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {listaProfissional.length === 0 ? (
-                                <tr>
-                                    <th colSpan="3"> Nenhum Profissional encontrado </th>
-                                </tr>
-                            ) :
-                                (
-                                    listaProfissional.map((profissional) => (
-                                        <ItemProfissional key={profissional.id} profissional={profissional} />
-                                    ))
+                ) : (
+                    <>
+                        {opcaoSelecionada === "cadastrar" && <FormProfissional onSubmit={handleAddProfissional} />}
+                        {opcaoSelecionada === "buscar" && <div className="container">
+                            <div className="busca">
+                                <BuscaCPF onBuscar={buscarProfissionalNome} onLimpar={limparBusca} />
+                            </div>
 
-                                )}
+                            <table className="tabela-profissional">
+                                <thead>
+                                    <tr>
+                                        <th className="th-nome">NOME</th>
+                                        <th className="th-crm">CRM</th>
+                                        <th className="th-area">ÁREA</th>
+                                        <th className="th-opcoes">OPÇÕES</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {listaProfissional.length === 0 ? (
+                                        <tr>
+                                            <th colSpan="3"> Nenhum Profissional encontrado </th>
+                                        </tr>
+                                    ) :
+                                        (
+                                            listaProfissional.map((profissional) => (
+                                                <ItemProfissional key={profissional.id} profissional={profissional}
+                                                    onEdit={handleEditarProfissional}
+                                                />
+                                            ))
 
-                        </tbody>
-                    </table>
-                </div>}
+                                        )}
+
+                                </tbody>
+                            </table>
+                        </div>}
+                    </>
+                )
+                }
+
             </div>
 
         </>

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { MdManageSearch, MdCleaningServices } from "react-icons/md";
 import "../../profissional.css"; // se quiser separar estilo
 
-export default function BuscaNome({ onBuscar, onLimpar }) {
+export default function BuscarNome({ onBuscar, onLimpar }) {
     const [nome, setNome] = useState("");
     const [mensagemErro, setMensagemErro] = useState("");
 
@@ -37,8 +37,8 @@ export default function BuscaNome({ onBuscar, onLimpar }) {
                 id="busca-nome"
                 value={nome}
                 onChange={(e) => setNome(e.target.value)}
-                placeholder="Insira o NOME cadastrado a ser buscado"
-            />nodemon server.js
+                placeholder="Insira o nome cadastrado a ser buscado"
+            />
             <button className="botoes" onClick={handleBuscar}>
                 <MdManageSearch id="icon-buscar" />
             </button>
