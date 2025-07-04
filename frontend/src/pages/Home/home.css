@@ -35,8 +35,8 @@ main {
 }
 
 #box-imagem img {
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
 }
 
 #box-pai {
@@ -82,8 +82,8 @@ main {
 }
 
 .box img {
-    width: 120px;
-    height: 120px;
+    width: 50%;
+    height: 50%;
 }
 
 .destaque {
