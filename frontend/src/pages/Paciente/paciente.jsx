@@ -10,6 +10,7 @@ import SucessoModal from "../../components/SucessoModal/sucessoModal";
 
 
 import "./paciente.css";
+import "../index.css";
 
 export default function Paciente() {
     const [opcaoSelecionada, setOpcaoSelecionada] = useState("");
@@ -111,7 +112,7 @@ export default function Paciente() {
 
     return (
         <>
-            <div className="container-paciente">
+            <div className="container-principal">
                 <h1 className="titulo"> Paciente </h1>
 
                 <div className="container-opcoes">
@@ -147,7 +148,7 @@ export default function Paciente() {
                                     <BuscaCPF onBuscar={buscarPacientePorCPF} onLimpar={limparBusca} />
                                 </div>
 
-                                <table className="tabela-pacientes">
+                                <table className="tabela-todos">
                                     <thead>
                                         <tr>
                                             <th className="th-nome">NOME</th>
