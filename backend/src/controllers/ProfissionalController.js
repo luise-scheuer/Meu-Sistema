@@ -27,7 +27,7 @@ class ProfissionalController {
     }
 
     // Buscar por nome parcial (primeiro nome, parte do nome etc.)
-    async searchByNome(req, res) {
+    async showByNome(req, res) {
         const { nome } = req.params;
 
         if (!nome || nome.trim() === "") {
@@ -37,7 +37,7 @@ class ProfissionalController {
         try {
             // Expressão regular que ignora maiúsculas/minúsculas e busca no começo ou meio
             const regex = new RegExp(`^${nome}`, 'i'); // começa com o nome digitado
-            const profissionais = await ProfissionalRepository.findByNomeRegex(regex);
+            const profissionais = await ProfissionalRepository.findByNome(regex);
 
             if (profissionais.length === 0) {
                 return res.status(404).json({ error: "Nenhum profissional encontrado com esse nome" });

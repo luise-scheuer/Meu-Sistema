@@ -12,6 +12,11 @@ class EspecialidadeRepository {
         return especialidade;
     }
 
+    async findByNome(regex){
+        const especialidade = await Especialidade.find({ area: regex });
+        return especialidade;
+    }
+
     async create({ area }) {
         const novaEspecialidade = new Especialidade({ area });
         await novaEspecialidade.save();
