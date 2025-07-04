@@ -18,7 +18,7 @@ class ProfissionalRepository {
     }
     
     async findByNome(regex) {
-        const profissional = await Profissional.find({ nome: regex });
+        const profissional = await Profissional.find({ nome: regex }).populate("especialidade", "area");
         return profissional;
     }
 

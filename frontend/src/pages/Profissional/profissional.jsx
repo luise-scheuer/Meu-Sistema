@@ -161,7 +161,7 @@ export default function Profissional() {
                                 <tbody>
                                     {listaProfissional.length === 0 ? (
                                         <tr>
-                                            <th colSpan="3"> Nenhum Profissional encontrado </th>
+                                            <th colSpan="4"> Nenhum Profissional encontrado </th>
                                         </tr>
                                     ) :
                                         (

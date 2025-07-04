@@ -5,13 +5,15 @@ export default function NavBar() {
     return (
         <nav className="navbar">
             <div id="logo">
-                <img src={logo} alt="" />
+                <Link to="/">
+                    <img src={logo} alt="" />
+                </Link>
             </div>
             <div id="campos">
                 <Link to="/profissional">Profissional</Link>
                 <Link to="/paciente">Paciente</Link>
                 <Link to="/especialidade">Especialidade</Link>
-                <Link to="/">Atendimento</Link>
+                <Link to="/atendimento">Atendimento</Link>
             </div>
         </nav>
 

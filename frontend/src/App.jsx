@@ -5,6 +5,7 @@ import Home from "./pages/Home/home";
 import Paciente from "./pages/Paciente/paciente";
 import Profissional from "./pages/Profissional/profissional";
 import Especialidade from "./pages/Especialidade/especialidade";
+import Atendimento from "./pages/Atendimento/atendimento";
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/paciente" element={<Paciente />} />
         <Route path="/profissional" element={<Profissional />} />
         <Route path="/especialidade" element={<Especialidade />} />
+        <Route path="/atendimento" element={<Atendimento />} />
       </Routes>
       <Footer></Footer>
     </>
