@@ -11,7 +11,7 @@ export default function ConfirmarDelete({ visible, message, onConfirm, onCancel 
       <div className="modal-container">
         <p>{message}</p>
         <div className="modal-buttons">
-          <button className="btn btn-confirm" onClick={onConfirm}>Confirmar</button>
+          <button className="btn btn-confirm-delete" onClick={onConfirm}>Confirmar</button>
           <button className="btn btn-cancel" onClick={onCancel}>Cancelar</button>
         </div>
       </div>

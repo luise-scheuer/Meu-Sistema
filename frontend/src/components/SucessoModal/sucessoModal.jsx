@@ -11,7 +11,7 @@ export default function SucessoModal({ visible, message, onClose }) {
       <div className="modal-container">
         <p>{message}</p>
         <div className="modal-buttons">
-          <button className="btn btn-confirm" onClick={onClose}>OK</button>
+          <button className="btn btn-confirm-sucess" onClick={onClose}>OK</button>
         </div>
       </div>
     </>

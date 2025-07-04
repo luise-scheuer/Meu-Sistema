@@ -36,8 +36,13 @@
   border: none;
 }
 
-.btn-confirm {
+.btn-confirm-delete {
   background-color: #d64859;
+  color: white;
+}
+
+.btn-confirm-sucess {
+  background-color: #48d688;
   color: white;
 }
 
