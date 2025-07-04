@@ -10,7 +10,7 @@ export default function NavBar() {
             <div id="campos">
                 <Link to="/profissional">Profissional</Link>
                 <Link to="/paciente">Paciente</Link>
-                <Link to="/">Especialidade</Link>
+                <Link to="/especialidade">Especialidade</Link>
                 <Link to="/">Atendimento</Link>
             </div>
         </nav>

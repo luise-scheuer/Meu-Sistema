@@ -4,6 +4,7 @@ import NavBar from "./components/NavBar/navBar";
 import Home from "./pages/Home/home";
 import Paciente from "./pages/Paciente/paciente";
 import Profissional from "./pages/Profissional/profissional";
+import Especialidade from "./pages/Especialidade/especialidade";
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/paciente" element={<Paciente />} />
         <Route path="/profissional" element={<Profissional />} />
+        <Route path="/especialidade" element={<Especialidade />} />
       </Routes>
       <Footer></Footer>
     </>
