@@ -3,17 +3,17 @@ const Profissional = require('../models/Profissional');
 class ProfissionalRepository {
 
     async findAll() {
-        const profissional = await Profissional.find();
+        const profissional = await Profissional.find().populate("especialidade", "area");
         return profissional;
     }
 
     async findById(id) {
-        const profissional = await Profissional.findById(id);
+        const profissional = await Profissional.findById(id).populate("especialidade", "area");
         return profissional;
     }
 
     async findByCrm(crm) {
-        const profissional = await Profissional.findOne({ crm });
+        const profissional = await Profissional.findOne({ crm }).populate("especialidade", "area");
         return profissional;
     }
 

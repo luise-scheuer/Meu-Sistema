@@ -6,7 +6,7 @@ export default function ItemProfissional({ profissional }) {
         <tr>
             <th>{profissional.nome}</th>
             <th>{profissional.crm}</th>
-            <th>{profissional.especialidade}</th>
+            <th>{profissional.especialidade?.area}</th>
             <th className="acoes">
                 <MdCreate className="icon-opcoes" id="icon-atualizar" />
                 <MdDeleteForever className="icon-opcoes" id="icon-deletar" />

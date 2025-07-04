@@ -25,8 +25,8 @@ class ProfissionalController {
         }
         res.json(profissional);
     }
+    
     //Busca específico por CRM -> será implementado no front-end
-
     async showByCrm(req, res) {
         const { crm } = req.params;
         const profissional = await ProfissionalRepository.findByCrm(crm);

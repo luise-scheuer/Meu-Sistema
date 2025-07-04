@@ -1,6 +1,6 @@
 // src/components/ConfirmModal/ConfirmModal.jsx
 import React from "react";
-import "./confirmarDelete.css";
+import "../modal.css";
 
 export default function ConfirmarDelete({ visible, message, onConfirm, onCancel }) {
   if (!visible) return null; // não renderiza nada se não estiver visível

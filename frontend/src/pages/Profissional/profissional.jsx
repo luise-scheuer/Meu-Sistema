@@ -1,9 +1,15 @@
 import { useState, useEffect } from "react";
 import { MdManageSearch, MdCleaningServices } from "react-icons/md";
 import api from "../../services/api";
+
 import FormProfissional from "./components/FormProfissional/formProfissional";
 import ItemProfissional from "./components/ItemProfissional/itemProfissional";
+
+import ConfirmarDelete from "../../components/ConfirmarDelete/confirmarDelete";
+import SucessoModal from "../../components/SucessoModal/sucessoModal";
+
 import "./profissional.css";
+import "../index.css";
 
 export default function Profissional() {
     const [opcaoSelecionada, setOpcaoSelecionada] = useState("");
@@ -11,6 +17,11 @@ export default function Profissional() {
     const [profissional, setProfissional] = useState([]);
 
     const [buscaNome, setBuscaNome] = useState("");
+
+    //Modal
+    //const [modalDeleteVisivel, setModalDeleteVisivel] = useState(false);
+    const [modalSucessoVisivel, setModalSucessoVisivel] = useState(false);
+    const [mensagemSucesso, setMensagemSucesso] = useState("");
 
 
     async function fetchProfissional() {
@@ -30,6 +41,8 @@ export default function Profissional() {
         try {
             const response = await api.post("/profissional", data);
             setProfissional([...profissional, response.data]);
+            setMensagemSucesso("Profissional cadastrado com sucesso!");
+            setModalSucessoVisivel(true);
         } catch (error) {
             console.log("Erro ao adicionar profissional: ", error);
         }
@@ -48,7 +61,7 @@ export default function Profissional() {
 
     return (
         <>
-            <div className="container-profissional">
+            <div className="container-principal">
                 <h1 className="titulo"> Profissional </h1>
 
                 <div className="container-opcoes">
@@ -56,6 +69,12 @@ export default function Profissional() {
                     <button className="opcoes" onClick={() => setOpcaoSelecionada("buscar")}>Buscar</button>
                 </div>
 
+
+                <SucessoModal
+                    visible={modalSucessoVisivel}
+                    message={mensagemSucesso}
+                    onClose={() => setModalSucessoVisivel(false)}
+                />
 
                 {opcaoSelecionada === "cadastrar" && <FormProfissional onSubmit={handleAddProfissional} />}
                 {opcaoSelecionada === "buscar" && <div className="container">
@@ -77,7 +96,8 @@ export default function Profissional() {
                         <thead>
                             <tr>
                                 <th className="th-nome">NOME</th>
-                                <th className="th-cpf">CRM</th>
+                                <th className="th-crm">CRM</th>
+                                <th className="th-area">ÁREA</th>
                                 <th className="th-opcoes">OPÇÕES</th>
                             </tr>
                         </thead>

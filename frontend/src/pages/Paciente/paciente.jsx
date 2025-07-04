@@ -5,7 +5,9 @@ import FormPaciente from "./components/FormPaciente/formPaciente";
 import ItemPaciente from "./components/ItemPaciente/itemPaciente";
 import BuscaCPF from "./components/BuscaCPF/buscaCpf";
 import EditarPaciente from "./components/EditarPaciente/editarPaciente";
-import ConfirmarDelete from "./components/ConfirmarDelete/confirmarDelete";
+import ConfirmarDelete from "../../components/ConfirmarDelete/confirmarDelete";
+import SucessoModal from "../../components/SucessoModal/sucessoModal";
+
 
 import "./paciente.css";
 
@@ -16,8 +18,11 @@ export default function Paciente() {
 
     const [pacienteEditando, setPacienteEditando] = useState(null);
 
-    const [modalVisivel, setModalVisivel] = useState(false);
+    const [modalDeleteVisivel, setModalDeleteVisivel] = useState(false);
     const [pacienteParaDeletar, setPacienteParaDeletar] = useState(null);
+
+    const [modalSucessoVisivel, setModalSucessoVisivel] = useState(false);
+    const [mensagemSucesso, setMensagemSucesso] = useState("");
 
     async function fetchPacientes() {
         try {
@@ -36,6 +41,8 @@ export default function Paciente() {
         try {
             const response = await api.post("/pacientes", data);
             setPacientes([...pacientes, response.data]);
+            setMensagemSucesso("Paciente cadastrado com sucesso!");
+            setModalSucessoVisivel(true);
         } catch (error) {
             console.log("Erro ao adicionar paciente: ", error);
         }
@@ -69,6 +76,8 @@ export default function Paciente() {
             await api.put(`/pacientes/${data._id}`, data);
             setPacienteEditando(null);
             fetchPacientes(); // atualiza a tabela
+            setMensagemSucesso("Paciente atualizado com sucesso!");
+            setModalSucessoVisivel(true);
         } catch (error) {
             console.log("Erro ao atualizar paciente:", error);
         }
@@ -77,7 +86,7 @@ export default function Paciente() {
     // Função chamada ao clicar no ícone de deletar
     function abrirModalDeletar(paciente) {
         setPacienteParaDeletar(paciente);
-        setModalVisivel(true);
+        setModalDeleteVisivel(true);
     }
 
     // Confirmar exclusão
@@ -86,7 +95,7 @@ export default function Paciente() {
 
         try {
             await api.delete(`/pacientes/${pacienteParaDeletar._id}`);
-            setModalVisivel(false);
+            setModalDeleteVisivel(false);
             setPacienteParaDeletar(null);
             fetchPacientes();
         } catch (error) {
@@ -96,7 +105,7 @@ export default function Paciente() {
 
     // Cancelar exclusão
     function cancelarDeletar() {
-        setModalVisivel(false);
+        setModalDeleteVisivel(false);
         setPacienteParaDeletar(null);
     }
 
@@ -111,10 +120,16 @@ export default function Paciente() {
                 </div>
 
                 <ConfirmarDelete
-                    visible={modalVisivel}
+                    visible={modalDeleteVisivel}
                     message={`Deseja realmente deletar o paciente "${pacienteParaDeletar?.nome}"?`}
                     onConfirm={confirmarDeletar}
                     onCancel={cancelarDeletar}
+                />
+
+                <SucessoModal
+                    visible={modalSucessoVisivel}
+                    message={mensagemSucesso}
+                    onClose={() => setModalSucessoVisivel(false)}
                 />
 
                 {pacienteEditando ? (

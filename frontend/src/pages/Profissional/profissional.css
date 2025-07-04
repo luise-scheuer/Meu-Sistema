@@ -106,7 +106,7 @@ label {
     color: #2b363f;
 }
 
-input {
+input, select {
     margin: 0;
     padding: 5px;
 
@@ -184,11 +184,15 @@ th {
 }
 
 .th-nome {
-    width: 50%;
+    width: 30%;
 }
 
-.th-cpf {
-    width: 30%;
+.th-crm {
+    width: 25%;
+}
+
+.th-area {
+    width: 25%;
 }
 
 .th-opcoes {
