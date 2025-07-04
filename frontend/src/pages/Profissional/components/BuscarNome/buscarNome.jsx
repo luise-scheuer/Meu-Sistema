@@ -9,7 +9,7 @@ export default function BuscarNome({ onBuscar, onLimpar }) {
     const handleBuscar = () => {
         const nomeLimpo = nome.trim();
         if (!nomeLimpo) {
-            setMensagemErro("Insira um Nome para buscar!");
+            setMensagemErro("Insira um nome para buscar!");
             setTimeout(() => setMensagemErro(""), 2500);
             return;
         }
