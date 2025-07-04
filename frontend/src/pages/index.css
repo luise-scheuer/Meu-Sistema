@@ -39,26 +39,26 @@
 .opcoes {
     margin: 0;
     padding: 20px;
-    
+
     font-size: 20px;
     font-weight: 600;
-    
+
     border-radius: 15px;
     border: none;
-    
+
 }
 
 
 .container {
     width: 50%;
-    
+
     margin: 0;
     padding: 20px;
-    
+
     display: flex;
     flex-direction: column;
     gap: 15px;
-    
+
     background-color: #D5E2E3;
     border-radius: 5px;
 }
@@ -72,37 +72,185 @@ form {
 
     justify-content: center;
     align-items: center;
-    
+
     gap: 10px;
 }
 
 .informacoes {
     width: 65%;
-    
+
     display: flex;
     flex-direction: column;
     gap: 5px;
-    
+
 }
 
 label {
     margin: 0;
     padding: 0;
-    
+
     font-size: 18px;
     font-weight: 600;
     color: #2b363f;
 }
 
-input {
+input,
+select {
     margin: 0;
     padding: 5px;
-    
+
     border: none;
     border-radius: 5px;
 
     font-family: "Quicksand";
     font-size: 15px;
+}
+
+
+#enviar,
+#button-update,
+#button-cancelar {
+    width: 50%;
+    margin-top: 20px;
+    padding: 10px;
+
+    font-size: 20px;
+    font-weight: 500;
+
+    border: none;
+    border-radius: 10px;
+}
+
+#enviar:disabled {
+    background-color: #2b363f;
+    cursor: not-allowed;
+}
+
+.busca {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-evenly;
+    align-items: center;
+    position: relative;
+}
+
+.busca input {
+    width: 70%;
+}
+
+.busca label {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+.tabela-todos {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    border-collapse: collapse;
+    border: 2px solid #8c8c8c;
+}
+
+thead {
+    background-color: #7ca0be;
+    color: #f1f8ff;
+}
+
+tbody {
+    background-color: #FFFFFF;
+}
+
+th {
+    margin: 0;
+    padding: 5px;
+    border: 1px solid #c7c7c7;
+}
+
+
+/* -------------------------- ATUALIZAR -------------------------*/
+#titulo-editar {
+    font-size: 25px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.buttons {
+    width: 50%;
+
+    display: flex;
+    flex-direction: row;
+
+    gap: 15px;
+}
+
+#button-cancelar {
+    background-color: #4b5b68;
+}
+
+#button-cancelar:hover {
+    background-color: #32414d;
+}
+
+#button-update:disabled,
+#button-cancelar:disabled {
+    background-color: #2b363f;
+    cursor: not-allowed;
+}
+
+
+/* ----------------------- ICONES ----------------------- */
+.icon-opcoes {
+    margin: 0 10px;
+    font-size: 30px;
+}
+
+.botoes {
+    border: none;
+    border-radius: 5px;
+    width: 40px;
+    height: 35px;
+}
+
+#icon-atualizar {
+    color: #4d6477;
+}
+
+#icon-atualizar:hover {
+    color: #5a7c99;
+}
+
+#icon-atualizar:active {
+    color: #32414d;
+}
+
+#icon-deletar {
+    color: #d64859;
+}
+
+#icon-deletar:hover {
+    color: #962935;
+}
+
+#icon-deletar:active {
+    color: #6e141d;
+}
+
+#icon-buscar {
+    font-size: 30px;
+    color: "#f1f8ff"
+}
+
+#icon-limpar {
+    font-size: 25px;
+    color: "#f1f8ff";
+
+    padding-top: 2px;
 }
 
 /*-------------- BOTÕES ---------------*/
@@ -120,4 +268,3 @@ button:hover {
 button:active {
     background-color: #4d6477;
 }
-

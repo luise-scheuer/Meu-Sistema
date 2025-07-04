@@ -92,7 +92,7 @@ export default function Profissional() {
                         </button>
                     </div>
 
-                    <table className="tabela-profissional">
+                    <table className="tabela-todos">
                         <thead>
                             <tr>
                                 <th className="th-nome">NOME</th>
