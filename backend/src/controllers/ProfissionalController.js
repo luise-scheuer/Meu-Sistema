@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const ProfissionalRepository = require("../repositories/ProfissonalRepository");
+const ProfissionalRepository = require("../repositories/ProfissionalRepository");
 
 class ProfissionalController {
     //Busca todos
@@ -28,7 +28,7 @@ class ProfissionalController {
 
     // Buscar por nome parcial (primeiro nome, parte do nome etc.)
     async searchByNome(req, res) {
-        const { nome } = req.query;
+        const { nome } = req.params;
 
         if (!nome || nome.trim() === "") {
             return res.status(400).json({ error: "Nome para busca é obrigatório" });

@@ -28,7 +28,7 @@ export default function Profissional() {
 
     async function fetchProfissionais() {
         try {
-            const response = await api.get("/profissional");
+            const response = await api.get("/profissionais");
             setListaProfissional(response.data);
         } catch (error) {
             console.log("Erro ao buscar profissionais: ", error);
@@ -41,7 +41,7 @@ export default function Profissional() {
 
     async function handleAddProfissional(data) {
         try {
-            const response = await api.post("/profissional", data);
+            const response = await api.post("/profissionais", data);
             setProfissionais([...profissionais, response.data]);
             setMensagemSucesso("Profissional cadastrado com sucesso!");
             setModalSucessoVisivel(true);
