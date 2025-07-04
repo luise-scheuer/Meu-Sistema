@@ -113,10 +113,10 @@ export default function Profissional() {
                         {opcaoSelecionada === "cadastrar" && <FormProfissional onSubmit={handleAddProfissional} />}
                         {opcaoSelecionada === "buscar" && <div className="container">
                             <div className="busca">
-                                <BuscaCPF onBuscar={buscarProfissionalNome} onLimpar={limparBusca} />
+                                <BuscarNome onBuscar={buscarProfissionalNome} onLimpar={limparBusca} />
                             </div>
 
-                            <table className="tabela-profissional">
+                            <table className="tabela-todos">
                                 <thead>
                                     <tr>
                                         <th className="th-nome">NOME</th>
