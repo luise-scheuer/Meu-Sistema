@@ -1,4 +1,5 @@
-.container {
+/*-------------- DIV PRINCIPAL ---------------*/
+.container-principal {
     margin: 0;
     padding: 15px;
 
@@ -34,11 +35,6 @@
     align-items: center;
 }
 
-button {
-    font-family: "Quicksand";
-    color: #f1f8ff;
-    background-color: #7ca0be;
-}
 
 .opcoes {
     margin: 0;
@@ -46,31 +42,23 @@ button {
     
     font-size: 20px;
     font-weight: 600;
-
+    
     border-radius: 15px;
     border: none;
-
+    
 }
 
-button:hover {
-    background-color: #5a7c99;
-    cursor: pointer;
-}
-
-button:active {
-    background-color: #4d6477;
-}
 
 .container {
     width: 50%;
-
+    
     margin: 0;
     padding: 20px;
-
+    
     display: flex;
     flex-direction: column;
     gap: 15px;
-
+    
     background-color: #D5E2E3;
     border-radius: 5px;
 }
@@ -84,23 +72,23 @@ form {
 
     justify-content: center;
     align-items: center;
-
+    
     gap: 10px;
 }
 
 .informacoes {
     width: 65%;
-
+    
     display: flex;
     flex-direction: column;
     gap: 5px;
-
+    
 }
 
 label {
     margin: 0;
     padding: 0;
-
+    
     font-size: 18px;
     font-weight: 600;
     color: #2b363f;
@@ -109,10 +97,27 @@ label {
 input {
     margin: 0;
     padding: 5px;
-
+    
     border: none;
     border-radius: 5px;
 
     font-family: "Quicksand";
     font-size: 15px;
 }
+
+/*-------------- BOTÕES ---------------*/
+button {
+    font-family: "Quicksand";
+    color: #f1f8ff;
+    background-color: #7ca0be;
+}
+
+button:hover {
+    background-color: #5a7c99;
+    cursor: pointer;
+}
+
+button:active {
+    background-color: #4d6477;
+}
+
