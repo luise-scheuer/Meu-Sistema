@@ -16,12 +16,12 @@ routes.delete("/pacientes/cpf/:cpf", PacienteController.destroyByCPF);
 routes.delete("/pacientes/:id", PacienteController.destroy);
 
 // --------- PROFISSIONAIS ----------
-routes.get("/profissional", ProfissionalController.index);
-routes.get("/profissional/:id", ProfissionalController.show);
-router.get('/profissionais/buscar', ProfissionalController.searchByNome);
-routes.post("/profissional", ProfissionalController.store);
-routes.put("/profissional/:id", ProfissionalController.update);
-routes.delete("/profissional/:id", ProfissionalController.destroy);
+routes.get("/profissionais", ProfissionalController.index);
+routes.get('/profissionais/nome/:nome', ProfissionalController.searchByNome);
+routes.get("/profissionais/:id", ProfissionalController.show);
+routes.post("/profissionais", ProfissionalController.store);
+routes.put("/profissionais/:id", ProfissionalController.update);
+routes.delete("/profissionais/:id", ProfissionalController.destroy);
 
 // --------- ESPECIALIDADES ----------
 routes.get("/especialidades", EspecialidadeController.index);

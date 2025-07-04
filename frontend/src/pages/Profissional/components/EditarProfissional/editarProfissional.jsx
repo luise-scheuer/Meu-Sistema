@@ -61,7 +61,6 @@ export default function EditarProfissional({ profissional, onSubmit, onCancel })
                         value={especialidade}
                         onChange={(e) => setEspecialidade(e.target.value)}
                     >
-                        <option value="">Selecione uma especialidade</option>
                         {listaEspecialidades.map((esp) => (
                             <option key={esp._id} value={esp._id}>
                                 {esp.area}
