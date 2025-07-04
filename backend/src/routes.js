@@ -22,6 +22,8 @@ routes.get("/profissionais/:id", ProfissionalController.show);
 routes.post("/profissionais", ProfissionalController.store);
 routes.put("/profissionais/:id", ProfissionalController.update);
 routes.delete("/profissionais/:id", ProfissionalController.destroy);
+routes.get('/profissionais/especialidade/:idEspecialidade', ProfissionalController.listarPorEspecialidade);
+
 
 // --------- ESPECIALIDADES ----------
 routes.get("/especialidades", EspecialidadeController.index);

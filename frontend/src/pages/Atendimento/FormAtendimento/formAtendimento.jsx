@@ -62,7 +62,14 @@ export default function FormAtendimento({ onSubmit }) {
           onChange={(e) => setPacienteCPF(e.target.value)}
         />
         <button type="button" onClick={buscarPacientePorCPF}>Buscar</button>
-        {pacienteSelecionado && <p>Paciente: {pacienteSelecionado.nome}</p>}
+        {pacienteSelecionado && (
+          <div>
+            <p>Nome: {pacienteSelecionado.nome}</p>
+            <p>Data de nascimento: {pacienteSelecionado.dataNascimento}</p>
+            <p>Telefone: {pacienteSelecionado.telefone}</p>
+            {/* Outros dados que quiser mostrar */}
+          </div>
+        )}
       </div>
 
       <div>

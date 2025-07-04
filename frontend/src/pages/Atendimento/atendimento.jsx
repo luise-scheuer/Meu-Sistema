@@ -10,7 +10,7 @@ import EditarPaciente from "./components/EditarPaciente/editarPaciente";
 
 import ConfirmarDelete from "../../components/ConfirmarDelete/confirmarDelete";
 import SucessoModal from "../../components/SucessoModal/sucessoModal";
-
+import FormAtendimento from "./FormAtendimento/formAtendimento";
 
 //import "./paciente.css";
 import "../index.css";
@@ -21,8 +21,8 @@ export default function Atendimento() {
         <>
             <div className="container-principal">
                 <h1 className="titulo"> Atendimento </h1>
+                <FormAtendimento onSubmit={handleSubmit} />
 
-                
             </div>
 
         </>

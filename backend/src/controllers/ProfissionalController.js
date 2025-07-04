@@ -136,6 +136,19 @@ class ProfissionalController {
         await ProfissionalRepository.delete(id);
         res.sendStatus(204);
     }
+
+    async listarPorEspecialidade(req, res) {
+        try {
+            const idEspecialidade = req.params.idEspecialidade;
+            const profissionais = await ProfissionalRepository.findByEspecialidade(idEspecialidade);
+            return res.json(profissionais);
+        } catch (error) {
+            console.error('Erro ao buscar profissionais por especialidade:', error);
+            return res.status(500).json({ error: 'Erro ao buscar profissionais.' });
+        }
+    }
+
+
 }
 
 module.exports = new ProfissionalController();
