@@ -25,17 +25,29 @@ class ProfissionalController {
         }
         res.json(profissional);
     }
-    
-    //Busca específico por CRM -> será implementado no front-end
-    async showByCrm(req, res) {
-        const { crm } = req.params;
-        const profissional = await ProfissionalRepository.findByCrm(crm);
 
-        if (!profissional) {
-            return res.status(404).json({ message: "Profissional com esse CRM não encontrado" });
+    // Buscar por nome parcial (primeiro nome, parte do nome etc.)
+    async searchByNome(req, res) {
+        const { nome } = req.query;
+
+        if (!nome || nome.trim() === "") {
+            return res.status(400).json({ error: "Nome para busca é obrigatório" });
         }
 
-        res.json(profissional);
+        try {
+            // Expressão regular que ignora maiúsculas/minúsculas e busca no começo ou meio
+            const regex = new RegExp(`^${nome}`, 'i'); // começa com o nome digitado
+            const profissionais = await ProfissionalRepository.findByNomeRegex(regex);
+
+            if (profissionais.length === 0) {
+                return res.status(404).json({ error: "Nenhum profissional encontrado com esse nome" });
+            }
+
+            res.json(profissionais);
+        } catch (err) {
+            console.error("Erro ao buscar profissional por nome:", err);
+            res.status(500).json({ error: "Erro interno no servidor" });
+        }
     }
 
     //Criar um cadastro

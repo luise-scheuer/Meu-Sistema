@@ -17,8 +17,8 @@ routes.delete("/pacientes/:id", PacienteController.destroy);
 
 // --------- PROFISSIONAIS ----------
 routes.get("/profissional", ProfissionalController.index);
-routes.get("/profissional/crm/:crm", ProfissionalController.showByCrm);
 routes.get("/profissional/:id", ProfissionalController.show);
+router.get('/profissionais/buscar', ProfissionalController.searchByNome);
 routes.post("/profissional", ProfissionalController.store);
 routes.put("/profissional/:id", ProfissionalController.update);
 routes.delete("/profissional/:id", ProfissionalController.destroy);
