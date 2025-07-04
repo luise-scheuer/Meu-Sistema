@@ -20,12 +20,13 @@ export default function Profissional() {
     const [profissionalEditando, setProfissionalEditando] = useState(null);
 
     //Modal
-    //const [modalDeleteVisivel, setModalDeleteVisivel] = useState(false);
+    const [modalDeleteVisivel, setModalDeleteVisivel] = useState(false);
+    const [profissionalParaDeletar, setProfissionalParaDeletar] = useState(null);
     const [modalSucessoVisivel, setModalSucessoVisivel] = useState(false);
     const [mensagemSucesso, setMensagemSucesso] = useState("");
 
 
-    async function fetchProfissional() {
+    async function fetchProfissionais() {
         try {
             const response = await api.get("/profissional");
             setListaProfissional(response.data);
@@ -35,7 +36,7 @@ export default function Profissional() {
     }
 
     useEffect(() => {
-        fetchProfissional();
+        fetchProfissionais();
     }, [profissionais]);
 
     async function handleAddProfissional(data) {
@@ -51,7 +52,7 @@ export default function Profissional() {
 
     async function buscarProfissionalNome(nome) {
         try {
-            const response = await api.get(`/profissional/nome/${nome.trim()}`);
+            const response = await api.get(`/profissionais/nome/${nome.trim()}`);
             const resultado = Array.isArray(response.data) ? response.data : [response.data];
             setListaProfissional(resultado);
         } catch (error) {
@@ -61,7 +62,7 @@ export default function Profissional() {
     }
 
     function limparBusca() {
-        fetchProfissional();
+        fetchProfissionais();
     }
 
     function handleEditarProfissional(profissional) {
@@ -74,14 +75,40 @@ export default function Profissional() {
 
     async function handleUpdateProfissional(data) {
         try {
-            await api.put(`/profissional/${data._id}`, data);
+            await api.put(`/profissionais/${data._id}`, data);
             setProfissionalEditando(null);
-            fetchProfissional(); // atualiza a tabela
+            fetchProfissionais(); // atualiza a tabela
             setMensagemSucesso("Profissional atualizado com sucesso!");
             setModalSucessoVisivel(true);
         } catch (error) {
             console.log("Erro ao atualizar profissional:", error);
         }
+    }
+
+    // Função chamada ao clicar no ícone de deletar
+    function abrirModalDeletar(profissional) {
+        setProfissionalParaDeletar(profissional);
+        setModalDeleteVisivel(true);
+    }
+
+    // Confirmar exclusão
+    async function confirmarDeletar() {
+        if (!profissionalParaDeletar) return;
+
+        try {
+            await api.delete(`/profissionais/${profissionalParaDeletar._id}`);
+            setModalDeleteVisivel(false);
+            setProfissionalParaDeletar(null);
+            fetchProfissionais();
+        } catch (error) {
+            console.log("Erro ao deletar profissional:", error);
+        }
+    }
+
+    // Cancelar exclusão
+    function cancelarDeletar() {
+        setModalDeleteVisivel(false);
+        setProfissionalParaDeletar(null);
     }
 
     return (
@@ -94,6 +121,12 @@ export default function Profissional() {
                     <button className="opcoes" onClick={() => setOpcaoSelecionada("buscar")}>Buscar</button>
                 </div>
 
+                <ConfirmarDelete
+                    visible={modalDeleteVisivel}
+                    message={`Deseja realmente deletar o profissional "${profissionalParaDeletar?.nome}"?`}
+                    onConfirm={confirmarDeletar}
+                    onCancel={cancelarDeletar}
+                />
 
                 <SucessoModal
                     visible={modalSucessoVisivel}
@@ -134,7 +167,7 @@ export default function Profissional() {
                                         (
                                             listaProfissional.map((profissional) => (
                                                 <ItemProfissional key={profissional.id} profissional={profissional}
-                                                    onEdit={handleEditarProfissional}
+                                                    onEdit={handleEditarProfissional} onDelete={() => abrirModalDeletar(profissional)}
                                                 />
                                             ))
 
